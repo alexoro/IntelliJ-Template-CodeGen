@@ -1,0 +1,64 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.alexoro.tcg</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Template CodeGen</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="uas.sorokin@gmail.com">Alexoro</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+<p>Are you working within some framework where you need to create a lot of boilerplate files?
+Is there a need to create templates and reuse them within the team?
+Well, this plugin is for you.</p>
+
+<p>Key features</p>
+<ul>
+<li>Templates are a set of some files inside a project. So you can share it within team.</li>
+<li>Supports placeholder. Wrap placeholder with '##'. I.e. ##I_AM_PLACEHOLDER##.</li>
+<li>Placeholders are supported in: directory names, file names and file contents.</li>
+</ul>
+
+<p>How to use</p>
+<ul>
+<li>Install plugin from plugin marketplace.</li>
+<li>Specify templates directory in plugin settings: 'Preferences' -> 'Tools' -> 'Template CodeGen'.</li>
+<li>Create templates in specified folder. Each folder is a separate template.</li>
+<li>Make a 'right button click' on a directory you want to place templates in, select 'New' -> 'Create from Template'.</li>
+<li>Fill the placeholders and press 'OK' :)</li>
+</ul>
+
+<p>GitHub source: <a href="https://github.com/alexoro/IntelliJ-Template-CodeGen">https://github.com/alexoro/IntelliJ-Template-CodeGen</a>
+<p>Video preview: <a href="https://www.youtube.com/watch?v=FHCCLU2emsM">https://www.youtube.com/watch?v=FHCCLU2emsM</a>
+    ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <actions>
+        <action id="com.alexoro.tcg.actions.OnCreateAction"
+                class="com.alexoro.tcg.actions.OnCreateAction"
+                text="Create from Template"
+                description="Create from Template">
+            <add-to-group group-id="NewGroup" anchor="last"/>
+        </action>
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <projectConfigurable
+                parentId="tools"
+                instance="com.alexoro.tcg.settings.ModuleSettingsConfigurable"
+                id="com.alexoro.tcg.settings.ModuleSettingsConfigurable"
+                key="settingsTitle"
+                bundle="lang" />
+        <projectService serviceImplementation="com.alexoro.tcg.settings.ModuleSettingsState" />
+    </extensions>
+
+</idea-plugin>
